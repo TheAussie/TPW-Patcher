@@ -15,32 +15,36 @@ for the full technical writeup of the three underlying bugs (v1/v2/v3).
 
 ## TL;DR - just fix my game
 
-From this folder, in PowerShell:
+This patcher modifies your own existing `TP.exe` and creates a backup before changing anything.
+
+Open **PowerShell** in this repository folder, then run:
 
 ```powershell
-py Patch-TPW-LevelMusic-Combined.py "C:\Program Files (x86)\Bullfrog\Theme Park World\TP.exe"
+py .\Patch-TPW-LevelMusic-Combined.py "C:\Program Files (x86)\Bullfrog\Theme Park World\TP.exe"
 ```
 
-That's it. This single script applies all three fixes (v1+v2+v3) in one
-pass. It is safe to run on:
+If the game is installed under `Program Files`, run PowerShell as **Administrator**.
 
-- a completely unpatched `TP.exe`
-- a `TP.exe` already partially patched (v1-only, or v1+v2) by the older
-  per-version scripts below
-- an already fully-patched `TP.exe` (it detects this and does nothing)
+That is the normal install path. The patcher will:
 
-It always:
+* detect whether your `TP.exe` is supported
+* apply the level-music fixes if needed
+* create a timestamped backup next to `TP.exe`
+* verify every changed byte after writing
+* print the exact rollback command
 
-- creates a timestamped backup next to `TP.exe` before writing anything
-  (e.g. `TP.exe.levelmusic-combined-bak-20260614-024502`)
-- verifies every changed byte after writing
-- prints exact rollback instructions
+It is safe to run again. If the patch is already applied, it will detect that and do nothing.
 
-### Preview without changing anything
+## Preview without changing anything
+
+To check what would happen before writing to the file:
 
 ```powershell
-py Patch-TPW-LevelMusic-Combined.py --dry-run "C:\Program Files (x86)\Bullfrog\Theme Park World\TP.exe"
+py .\Patch-TPW-LevelMusic-Combined.py --dry-run "C:\Program Files (x86)\Bullfrog\Theme Park World\TP.exe"
 ```
+
+Use this first if you want to confirm the patcher recognises your executable.
+
 
 This prints the full patch plan (old/new bytes, file offsets, target
 addresses) without touching the file, and works even on a completely fresh,
