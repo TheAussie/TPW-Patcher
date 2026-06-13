@@ -7,17 +7,27 @@ for the full technical writeup of the three underlying bugs (v1/v2/v3).
 
 ## Requirements
 
-- Python 3 (any recent 3.x). Run with `py` or `python` from PowerShell.
-- A 32-bit `TP.exe` from Theme Park World, unmodified or already partially
-  patched by these same scripts.
-- If `TP.exe` lives under `C:\Program Files (x86)\...`, run PowerShell **as
-  Administrator** so the script can write the patched file back in place.
+* Python 3.
+* A supported 32-bit `TP.exe` from Theme Park World / Sim Theme Park.
+* Your own installed copy of the game.
+
+This project does **not** include or distribute `TP.exe`, `TP.icd`, or any game assets.
+
+The patcher is safe to run on:
+
+* a completely unpatched `TP.exe`
+* a `TP.exe` already partially patched by the older v1/v2 scripts
+* an already fully patched `TP.exe`
+
+If the patch is already applied, the script will detect that and do nothing.
 
 ## TL;DR - just fix my game
 
-This patcher modifies your own existing `TP.exe` and creates a backup before changing anything.
+The patcher modifies your existing `TP.exe` and creates a timestamped backup before writing anything.
 
-Open **PowerShell** in this repository folder, then run:
+### Windows PowerShell
+
+From this repository folder:
 
 ```powershell
 py .\Patch-TPW-LevelMusic-Combined.py "C:\Program Files (x86)\Bullfrog\Theme Park World\TP.exe"
@@ -25,40 +35,71 @@ py .\Patch-TPW-LevelMusic-Combined.py "C:\Program Files (x86)\Bullfrog\Theme Par
 
 If the game is installed under `Program Files`, run PowerShell as **Administrator**.
 
-That is the normal install path. The patcher will:
-
-* detect whether your `TP.exe` is supported
-* apply the level-music fixes if needed
-* create a timestamped backup next to `TP.exe`
-* verify every changed byte after writing
-* print the exact rollback command
-
-It is safe to run again. If the patch is already applied, it will detect that and do nothing.
-
-## Preview without changing anything
-
-To check what would happen before writing to the file:
+Preview without changing anything:
 
 ```powershell
 py .\Patch-TPW-LevelMusic-Combined.py --dry-run "C:\Program Files (x86)\Bullfrog\Theme Park World\TP.exe"
 ```
 
-Use this first if you want to confirm the patcher recognises your executable.
+### Linux / macOS terminal
 
+If you are running the Windows version of the game through Wine or a Wine-style wrapper, patch the `TP.exe` inside that prefix/bottle.
 
-This prints the full patch plan (old/new bytes, file offsets, target
-addresses) without touching the file, and works even on a completely fresh,
-unpatched `TP.exe`.
+Example default Wine path:
 
-### Rolling back
+```bash
+python3 ./Patch-TPW-LevelMusic-Combined.py "$HOME/.wine/drive_c/Program Files (x86)/Bullfrog/Theme Park World/TP.exe"
+```
 
-If anything looks wrong, restore the backup the script created:
+Preview without changing anything:
+
+```bash
+python3 ./Patch-TPW-LevelMusic-Combined.py --dry-run "$HOME/.wine/drive_c/Program Files (x86)/Bullfrog/Theme Park World/TP.exe"
+```
+
+For custom Wine prefixes, CrossOver bottles, Whisky bottles, Porting Kit installs, or other wrappers, replace the path with the actual location of your `TP.exe`.
+
+## What the patcher does
+
+The combined patcher applies all three level-music fixes in one pass.
+
+It will:
+
+* detect whether your `TP.exe` is supported
+* apply the fixes only if needed
+* create a timestamped backup next to `TP.exe`
+* verify every changed byte after writing
+* print the exact rollback command for your backup
+
+## Rolling back
+
+Use the exact backup filename printed by the script for your run.
+
+### Windows PowerShell
+
+From the game folder:
 
 ```powershell
 Copy-Item "TP.exe.levelmusic-combined-bak-20260614-024502" "TP.exe" -Force
 ```
 
-(Use the exact backup filename printed by the script for that run.)
+### Linux / macOS terminal
+
+From the game folder:
+
+```bash
+cp -f "TP.exe.levelmusic-combined-bak-20260614-024502" "TP.exe"
+```
+
+Example Wine path:
+
+```bash
+cd "$HOME/.wine/drive_c/Program Files (x86)/Bullfrog/Theme Park World"
+cp -f "TP.exe.levelmusic-combined-bak-20260614-024502" "TP.exe"
+```
+
+Wrapper paths vary. Find the folder containing `TP.exe`, then restore the backup over it.
+
 
 ## Validation checklist (after patching)
 
