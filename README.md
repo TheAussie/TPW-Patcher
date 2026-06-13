@@ -2,7 +2,7 @@
 
 These scripts fix Theme Park World's in-park level music, which on modern
 Windows either never plays, or stops permanently after the first tick of a
-level. See [TPW-LevelMusic-Investigation.md](TPW-LevelMusic-Investigation.md)
+level. See [TPW-LevelMusic-Investigation.md](docs/TPW-LevelMusic-Investigation.md)
 for the full technical writeup of the three underlying bugs (v1/v2/v3).
 
 ## Requirements
