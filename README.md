@@ -132,5 +132,4 @@ The combined patcher is self-contained and supersedes the older per-stage script
   all three fixes; nothing to do.
 
 
-
-Reverse engineering, testing, and patch development by TheAussie, with AI-assisted debugging and documentation.
+Investigation, testing, validation, and release packaging by TheAussie, with AI-assisted patch implementation and documentation.
