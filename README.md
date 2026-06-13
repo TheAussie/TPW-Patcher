@@ -110,3 +110,7 @@ rollback, and compatibility testing.
   `Test-TPW-PatchCompat.py` against it for details. Do not force the patch.
 - **"already fully applied... No changes made."** - your `TP.exe` already has
   all three fixes; nothing to do.
+
+
+
+Reverse engineering, testing, and patch development by TheAussie, with AI-assisted debugging and documentation.
