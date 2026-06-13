@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 #!/usr/bin/env python3
 """
 Patch Theme Park World TP.exe for in-park level music (combined v1+v2+v3),
