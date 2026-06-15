@@ -59,6 +59,16 @@ python3 ./Patch-TPW-LevelMusic-Combined.py --dry-run "$HOME/.wine/drive_c/Progra
 
 For custom Wine prefixes, CrossOver bottles, Whisky bottles, Porting Kit installs, or other wrappers, replace the path with the actual location of your `TP.exe`.
 
+
+### Alternate-resolution executables
+
+Compatible alternate-resolution executables can also be patched if their music-code signatures match.
+
+`TP_AltRes.EXE` from the [TPW-TPI-Fixes](https://github.com/HyperJeanJean/TPW-TPI-Fixes) project has been tested successfully with the combined level-music patch.
+
+TPW Patcher does **not** include or distribute `TP_AltRes.EXE`; users must obtain it from the original project.
+
+
 ## What the patcher does
 
 The combined patcher applies all three level-music fixes in one pass.
